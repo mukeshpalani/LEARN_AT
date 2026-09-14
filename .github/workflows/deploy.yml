@@ -5,9 +5,16 @@ on:
     branches:
       - main
       - master
+  workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
@@ -28,18 +35,26 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
-        working-directory: ./
 
       - name: Build Application
         run: pnpm build
-        working-directory: ./
 
-      - name: Copy index.html to 404.html for SPA Routing
+      - name: Prepare SPA Routing and Disable Jekyll
         run: |
-          cp dist/public/index.html dist/public/404.html || cp client/index.html dist/public/404.html || true
-        working-directory: ./
+          cp dist/public/index.html dist/public/404.html
+          touch dist/public/.nojekyll
 
-      - name: Deploy to GitHub Pages
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/public
+
+      - name: Deploy to GitHub Pages (Actions Source)
+        id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Deploy to gh-pages Branch (Branch Source Fallback)
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist/public
