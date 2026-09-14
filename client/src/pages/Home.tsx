@@ -186,11 +186,12 @@ export default function Home() {
             <PracticeSection
               dailyTask={dailyTask}
               learningComplete={learningComplete}
+              onTab={setTab}
             />
           )}
           {tab === "documents" && <DocumentsPage />}
           {tab === "python-lab" && <PythonLabPage />}
-          {tab === "mission" && <MissionSection submit={missionSubmit} />}
+          {tab === "mission" && <MissionSection submit={missionSubmit} onTab={setTab} />}
           {tab === "passport" && <PassportSection profile={profile} competencies={competencies} evidence={workspace?.evidence ?? []} />}
           {tab === "admin" && <AdminDashboardPage />}
         </div>
@@ -351,7 +352,7 @@ function OverviewSection({ profile, competencies, average, nextAction, analysis,
   );
 }
 
-function PracticeSection({ dailyTask, learningComplete }: any) {
+function PracticeSection({ dailyTask, learningComplete, onTab }: any) {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [quizSubmitted, setQuizSubmitted] = useState(false);
 
@@ -390,7 +391,7 @@ function PracticeSection({ dailyTask, learningComplete }: any) {
                 {dailyTask.codingTask?.starterCode}
               </pre>
               <button
-                onClick={() => setTab("python-lab")}
+                onClick={() => onTab && onTab("python-lab")}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline pt-2 cursor-pointer"
               >
                 Open in Python Lab <ArrowUpRight size={14} />
@@ -406,7 +407,7 @@ function PracticeSection({ dailyTask, learningComplete }: any) {
                 {dailyTask.debuggingTask?.brokenCode}
               </pre>
               <button
-                onClick={() => setTab("python-lab")}
+                onClick={() => onTab && onTab("python-lab")}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline pt-2 cursor-pointer"
               >
                 Debug in Python Lab <ArrowUpRight size={14} />
@@ -475,7 +476,7 @@ function PracticeSection({ dailyTask, learningComplete }: any) {
   );
 }
 
-function MissionSection({ submit }: any) {
+function MissionSection({ submit, onTab }: any) {
   const [ran, setRan] = useState(false);
   const [score] = useState(82);
 
@@ -496,7 +497,7 @@ function MissionSection({ submit }: any) {
           <h2>Automate Household Survey Data Cleaning Pipeline</h2>
           <p>Clean messy survey records, detect missing values, and output summary statistics.</p>
           <div className="mission-actions">
-            <button onClick={() => setTab("python-lab")} className="primary-button inline-flex items-center gap-2 cursor-pointer">
+            <button onClick={() => onTab && onTab("python-lab")} className="primary-button inline-flex items-center gap-2 cursor-pointer">
               <Play size={15} /> Open Python Lab
             </button>
             <button className="secondary-button" onClick={() => setRan(true)}>
