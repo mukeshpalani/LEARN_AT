@@ -9,6 +9,8 @@ import App from "./App";
 import { startLogin } from "./const";
 import "./index.css";
 
+import { getAppUrl, navigateTo } from "@/lib/utils";
+
 const queryClient = new QueryClient();
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
@@ -18,8 +20,9 @@ const redirectToLoginIfUnauthorized = (error: unknown) => {
   const isUnauthorized = error.message === UNAUTHED_ERR_MSG;
   if (!isUnauthorized) return;
 
-  if (window.location.pathname !== "/auth") {
-    window.location.href = "/auth";
+  const authUrl = getAppUrl("/auth");
+  if (window.location.pathname !== authUrl) {
+    navigateTo("/auth");
   }
 };
 

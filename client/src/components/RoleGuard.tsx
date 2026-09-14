@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { Redirect } from "wouter";
+import { Link, Redirect } from "wouter";
 import { ShieldAlert, ArrowLeft } from "lucide-react";
 
 interface RoleGuardProps {
@@ -40,12 +40,12 @@ export default function RoleGuard({ children, requiredRole = "user" }: RoleGuard
           <p className="text-sm text-muted-foreground">
             You do not have Administrator permissions to view this area. Admin authorization is strictly enforced.
           </p>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center justify-center gap-2 py-2.5 px-5 bg-primary text-primary-foreground font-medium text-sm rounded-xl hover:bg-primary/90 transition-colors"
           >
             <ArrowLeft size={16} /> Return to Learner Dashboard
-          </a>
+          </Link>
         </div>
       </div>
     );

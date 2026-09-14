@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { startGoogleLogin, signInWithEmail, signUpWithEmail, setupRecaptcha, sendPhoneOTP } from "@/const";
+import { navigateTo } from "@/lib/utils";
 import { toast } from "sonner";
 import { ArrowUpRight, ShieldCheck, Mail, Phone, Lock, User, Sparkles, LogIn, CheckCircle2 } from "lucide-react";
 import { ConfirmationResult } from "firebase/auth";
@@ -33,7 +34,7 @@ export default function AuthPage({ onAuthSuccess }: { onAuthSuccess?: () => void
         localStorage.setItem("activeRole", selectedRole);
         toast.success(`Logged in successfully as ${selectedRole === "admin" ? "Administrator" : "Learner"}`);
         if (onAuthSuccess) onAuthSuccess();
-        window.location.href = selectedRole === "admin" ? "/admin" : "/";
+        navigateTo(selectedRole === "admin" ? "/admin" : "/");
       }
     } catch (err: any) {
       toast.error(err.message || "Google sign-in failed");
@@ -68,7 +69,7 @@ export default function AuthPage({ onAuthSuccess }: { onAuthSuccess?: () => void
         localStorage.setItem(`role_${user.uid}`, selectedRole);
         localStorage.setItem("activeRole", selectedRole);
         if (onAuthSuccess) onAuthSuccess();
-        window.location.href = selectedRole === "admin" ? "/admin" : "/";
+        navigateTo(selectedRole === "admin" ? "/admin" : "/");
       }
     } catch (err: any) {
       console.error(err);
@@ -121,7 +122,7 @@ export default function AuthPage({ onAuthSuccess }: { onAuthSuccess?: () => void
         localStorage.setItem("activeRole", selectedRole);
         toast.success("Phone verified successfully!");
         if (onAuthSuccess) onAuthSuccess();
-        window.location.href = selectedRole === "admin" ? "/admin" : "/";
+        navigateTo(selectedRole === "admin" ? "/admin" : "/");
       }
     } catch (err: any) {
       toast.error("Invalid OTP code. Please try again.");

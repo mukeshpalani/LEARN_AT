@@ -389,12 +389,12 @@ function PracticeSection({ dailyTask, learningComplete }: any) {
               <pre className="p-3 bg-muted rounded-xl text-xs font-mono text-foreground overflow-x-auto">
                 {dailyTask.codingTask?.starterCode}
               </pre>
-              <a
-                href="/python-lab"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline pt-2"
+              <button
+                onClick={() => setTab("python-lab")}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline pt-2 cursor-pointer"
               >
                 Open in Python Lab <ArrowUpRight size={14} />
-              </a>
+              </button>
             </div>
 
             {/* Debugging Task */}
@@ -405,12 +405,12 @@ function PracticeSection({ dailyTask, learningComplete }: any) {
               <pre className="p-3 bg-destructive/10 border border-destructive/20 text-destructive rounded-xl text-xs font-mono overflow-x-auto">
                 {dailyTask.debuggingTask?.brokenCode}
               </pre>
-              <a
-                href="/python-lab"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline pt-2"
+              <button
+                onClick={() => setTab("python-lab")}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline pt-2 cursor-pointer"
               >
                 Debug in Python Lab <ArrowUpRight size={14} />
-              </a>
+              </button>
             </div>
           </div>
 
@@ -496,9 +496,9 @@ function MissionSection({ submit }: any) {
           <h2>Automate Household Survey Data Cleaning Pipeline</h2>
           <p>Clean messy survey records, detect missing values, and output summary statistics.</p>
           <div className="mission-actions">
-            <a href="/python-lab" className="primary-button inline-flex items-center gap-2">
+            <button onClick={() => setTab("python-lab")} className="primary-button inline-flex items-center gap-2 cursor-pointer">
               <Play size={15} /> Open Python Lab
-            </a>
+            </button>
             <button className="secondary-button" onClick={() => setRan(true)}>
               Simulate Mission Run
             </button>

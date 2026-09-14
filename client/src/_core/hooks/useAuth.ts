@@ -1,6 +1,7 @@
 import { logoutUser, startLogin } from "@/const";
 import { auth } from "@/firebase";
 import { trpc } from "@/lib/trpc";
+import { getAppUrl, navigateTo } from "@/lib/utils";
 import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -69,12 +70,12 @@ export function useAuth(options?: UseAuthOptions) {
     if (state.user) return;
     if (typeof window === "undefined") return;
 
-    if (redirectPath && window.location.pathname === redirectPath) return;
+    if (redirectPath && window.location.pathname === getAppUrl(redirectPath)) return;
 
     if (redirectPath) {
-      window.location.href = redirectPath;
+      navigateTo(redirectPath);
     } else {
-      startLogin();
+      navigateTo("/auth");
     }
   }, [redirectOnUnauthenticated, redirectPath, state.loading, state.user]);
 
