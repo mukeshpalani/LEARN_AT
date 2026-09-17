@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.venv/
+env/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Build & Output
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+
+# Databases & User Uploads
+*.db
+qdrant_db/
+documents/*
+!documents/.gitkeep
+generated_reports/*
+!generated_reports/.gitkeep
+
+# Environment & Credentials
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+serviceAccountKey.json
+service-account.json
+credentials.json
+token.json
+
+# System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
